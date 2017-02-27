@@ -1,5 +1,5 @@
-#created by: akash
 #!/bin/bash
+#created by: akash
 if [ ! -z $1 ]
 then
 	# if $1 is not null.
@@ -23,6 +23,14 @@ then
 		echo "Changing proxy for Git..."
 		git config --global http.proxy "http://"$auth"172.31."$1":3128"
 		git config --global https.proxy "http://"$auth"172.31."$1":3128"
+		echo "Changing proxy for npm..."
+		if hash npm 2>/dev/null;
+		then
+			npm config set proxy "http://"$auth"172.31."$1":3128"
+			npm config set https-proxy "http://"$auth"172.31."$1":3128"
+		else
+			echo "npm doesn't exists."
+		fi
 		source $env
 	}
 	
