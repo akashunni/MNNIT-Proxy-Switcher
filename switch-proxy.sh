@@ -20,6 +20,9 @@ then
 		sudo sed -i 's/^Acquire::http::proxy.*$/Acquire::http::proxy \"http:\/\/'$auth'172.31.'$1':3128\/\";/' $apt_conf
 		sudo sed -i 's/^Acquire::https::proxy.*$/Acquire::https::proxy \"https:\/\/'$auth'172.31.'$1':3128\/\";/' $apt_conf
 		echo "Reloading variables in $env for this Terminal..."
+		echo "Changing proxy for Git..."
+		git config --global http.proxy "http://"$auth"172.31."$1":3128"
+		git config --global https.proxy "http://"$auth"172.31."$1":3128"
 		source $env
 	}
 	
